@@ -1,11 +1,14 @@
 package game2048;
 
+import org.hamcrest.core.Is;
+import ucb.gui.TopLevel;
+
 import java.util.Formatter;
 import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author small game run!
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -106,14 +109,66 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
+    /**
+     Below are 3 helper functions which are focused on only a specific column.
+     */
+
+
+    public boolean SimpleMoveForCol(int c)
+    {
+        boolean rt=false;
+        for(int i=1;i<board.size();i+=1)
+        {
+            for(int r=board.size()-2;r>=0;r-=1)
+            {
+                Tile t1=board.tile(c,r+1);
+                Tile t2=board.tile(c,r);
+                if(t1==null && t2!=null)
+                {
+                    board.move(c,r+1,t2);
+                    rt=true;
+                }
+            }
+        }
+        return rt;
+    }
+
+   // public void Merge(int c)
+
+
+
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
 
         // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
+        board.setViewingPerspective(side);
 
+        // for the tilt to the Side SIDE. If the board changed, set the
+        for(int c=0;c<board.size();c+=1)
+        {
+
+            boolean x=SimpleMoveForCol(c);
+            if(x){changed=true;}
+            for(int r=board.size()-1;r>0 && board.tile(c,r)!=null;r-=1)
+            {
+                if(board.tile(c,r-1)==null){break;}
+                else
+                {
+                if(board.tile(c,r).value()==board.tile(c,r-1).value())
+                {
+                    board.move(c,r,board.tile(c,r-1));
+                    changed=true;
+                    score+=board.tile(c,r).value();
+                    SimpleMoveForCol(c);
+                }
+                }
+            }
+        }
+
+        // changed local variable to true.
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
@@ -138,6 +193,17 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        int len = b.size();
+        for(int i=0;i<len;i+=1)
+        {
+            for(int j=0;j<len;j+=1)
+            {
+                if(b.tile(i,j)==null)
+                {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -148,6 +214,17 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        int len = b.size();
+        for(int i=0;i<len;i+=1)
+        {
+            for(int j=0;j<len;j+=1)
+            {
+                if(b.tile(i,j) != null && b.tile(i,j).value()==MAX_PIECE)
+                {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -159,6 +236,20 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        if(emptySpaceExists(b)){return true;}
+        int len = b.size();
+        for(int i=0;i<len-1;i+=1)
+        {
+            for(int j=0;j<len-1;j+=1)
+            {
+                if(b.tile(i,j).value()==b.tile(i+1,j).value() || b.tile(i,j).value()==b.tile(i,j+1).value())
+                {
+                    return true;
+                }
+            }
+        }
+        if(b.tile(len-1,len-1).value()==b.tile(len-2,len-1).value() || b.tile(len-1,len-1).value()==b.tile(len-1,len-2).value())
+        {return true;  }
         return false;
     }
 
