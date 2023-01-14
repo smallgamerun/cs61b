@@ -1,13 +1,13 @@
 package deque;
 
-public class ArrayDeque<Item> implements Deque<Item> {
-    private Item[] items;
+public class ArrayDeque<T> implements Deque<T> {
+    private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
 
     public ArrayDeque() {
-        items = (Item[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
@@ -25,7 +25,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     }
 
     private void resize(int capacity) {
-        Item[] a = (Item[]) new Object[capacity];
+        T[] a = (T[]) new Object[capacity];
         int start=addone(nextFirst);
         for (int i = 0; i < size; i++) {
             a[i] = items[start];
@@ -36,7 +36,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         nextLast = size;
     }
     @Override
-    public void addFirst(Item x) {
+    public void addFirst(T x) {
         if (size == items.length) {
             resize(size * 2);
         }
@@ -45,7 +45,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         size++;
     }
     @Override
-    public void addLast(Item x) {
+    public void addLast(T x) {
         if (size == items.length) {
             resize(size * 2);
         }
@@ -63,24 +63,24 @@ public class ArrayDeque<Item> implements Deque<Item> {
         }
     }
     @Override
-    public Item removeLast() {
+    public T removeLast() {
         if (isEmpty()) {
             return null;
         }
         nextLast = minusone(nextLast);
-        Item k = items[nextLast];
+        T k = items[nextLast];
         items[nextLast] = null;
         size--;
         shrinksize();
         return k;
     }
     @Override
-    public Item removeFirst() {
+    public T removeFirst() {
         if (isEmpty()) {
             return null;
         }
         nextFirst = addone(nextFirst);
-        Item k = items[nextFirst];
+        T k = items[nextFirst];
         items[nextFirst] = null;
         size--;
         shrinksize();
@@ -98,7 +98,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         System.out.println();
     }
     @Override
-    public Item get(int index) {
+    public T get(int index) {
         if (index >= size || index < 0) {
             return null;
         }
@@ -107,7 +107,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     @Override
     //public boolean equals(ArrayDeque o)
     public boolean equals(Object l) {
-        ArrayDeque<Item> o =(ArrayDeque<Item>) l;
+        ArrayDeque<T> o =(ArrayDeque<T>) l;
         if (!(o instanceof ArrayDeque) || o.size() != size) {
             return false;
         }
