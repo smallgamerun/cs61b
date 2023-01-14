@@ -7,12 +7,12 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T>
         private T item;
         private IntNode next;
         private IntNode prev;
-        public IntNode()
+        private IntNode()
         {
             next=null;
             prev=null;
         }
-        public IntNode(T i,IntNode n,IntNode p)
+        private IntNode(T i,IntNode n,IntNode p)
         {
             item=i;
             next=n;
@@ -145,10 +145,16 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T>
     //public boolean equals(LinkedListDeque<Item> l)  -- wrong!
     public boolean equals(Object o)
     {
+        if(o==null){
+            return false;
+        }
+        if(o==this){
+            return true;
+        }
         if(!(o instanceof LinkedListDeque)){
             return false;
         }
-        LinkedListDeque<T> l=(LinkedListDeque<T>) o;
+        LinkedListDeque<?> l=(LinkedListDeque<?>) o;
         if(size!=l.size())
         {
             return false;
@@ -182,7 +188,7 @@ public class LinkedListDeque<T> implements Deque<T>,Iterable<T>
         }
 
         public boolean hasNext() {
-            return p != null;
+            return p == last;
         }
 
         public T next() {

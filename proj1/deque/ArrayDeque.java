@@ -55,7 +55,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         size++;
     }
 
-    public void shrinksize() {
+    private void shrinksize() {
         if (isEmpty()) {
             resize(8);
         }
@@ -109,10 +109,16 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
     @Override
     //public boolean equals(ArrayDeque o)
     public boolean equals(Object l) {
+        if(l==null){
+            return false;
+        }
+        if(l==this){
+            return true;
+        }
         if(!(l instanceof ArrayDeque)){
             return false;
         }
-        ArrayDeque<T> o =(ArrayDeque<T>) l;
+        ArrayDeque<?> o =(ArrayDeque<?>) l;
         if (o.size() != size) {
             return false;
         }
