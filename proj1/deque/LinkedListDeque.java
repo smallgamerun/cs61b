@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class LinkedListDeque<T> implements Deque<T>
 {
     private class IntNode
@@ -162,6 +162,23 @@ public class LinkedListDeque<T> implements Deque<T>
             b=b.next;
         }
         return true;
+    }
+    private class LinkedListDequeIterator implements Iterator<T> {
+        private IntNode p;
+
+        LinkedListDequeIterator() {
+            p = sentinel.next;
+        }
+
+        public boolean hasNext() {
+            return p == sentinel;
+        }
+
+        public T next() {
+            T item = p.item;
+            p = p.next;
+            return item;
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 package deque;
-
+import java.util.Iterator;
 public class ArrayDeque<T> implements Deque<T> {
     private T[] items;
     private int size;
@@ -117,6 +117,24 @@ public class ArrayDeque<T> implements Deque<T> {
             }
         }
         return true;
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        private int index;
+
+        ArrayDequeIterator() {
+            index = 0;
+        }
+
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        public T next() {
+            T item = get(index);
+            index += 1;
+            return item;
+        }
     }
 
 }
