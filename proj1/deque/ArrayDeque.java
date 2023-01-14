@@ -1,6 +1,7 @@
 package deque;
 import java.util.Iterator;
-public class ArrayDeque<T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
+    @SuppressWarnings("unchecked")
     private T[] items;
     private int size;
     private int nextFirst;
@@ -86,6 +87,7 @@ public class ArrayDeque<T> implements Deque<T> {
         shrinksize();
         return k;
     }
+    @SuppressWarnings("unchecked")
     @Override
     public int size() {
         return size;
@@ -107,18 +109,25 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     //public boolean equals(ArrayDeque o)
     public boolean equals(Object l) {
+        if(!(l instanceof ArrayDeque)){
+            return false;
+        }
         ArrayDeque<T> o =(ArrayDeque<T>) l;
-        if (!(o instanceof ArrayDeque) || o.size() != size) {
+        if (o.size() != size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
-            if (o.get(i) != items[(i+1+nextFirst)% items.length]) {
+
+            if (o.get(i) != get(i))/*items[(i+1+nextFirst)% items.length]*/ {
                 return false;
             }
         }
         return true;
     }
 
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
     private class ArrayDequeIterator implements Iterator<T> {
         private int index;
 

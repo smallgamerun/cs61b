@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.StdRandom;
 import net.sf.saxon.functions.Innermost;
 import org.junit.Test;
 
+import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -77,9 +78,20 @@ public class ArrayDequeTest
         }
     }
 
+    @Test
+    public void iteratorTest()
+    {
+        ArrayDeque<Integer> arrayDeque=new ArrayDeque<Integer>();
+        arrayDeque.addLast(1);
+        arrayDeque.addLast(4);
+        arrayDeque.addLast(2);
+
+    }
+
     public void main()
     {
-        testThreeAddThreeRemove();
-        ramdomizedTest();
+        //testThreeAddThreeRemove();
+        //ramdomizedTest();
+        iteratorTest();
     }
 }
