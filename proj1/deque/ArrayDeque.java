@@ -27,7 +27,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        int start=addone(nextFirst);
+        int start = addone(nextFirst);
         for (int i = 0; i < size; i++) {
             a[i] = items[start];
             start = addone(start);
@@ -36,6 +36,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         nextFirst = items.length - 1;
         nextLast = size;
     }
+
     @Override
     public void addFirst(T x) {
         if (size == items.length) {
@@ -45,6 +46,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         nextFirst = minusone(nextFirst);
         size++;
     }
+
     @Override
     public void addLast(T x) {
         if (size == items.length) {
@@ -63,6 +65,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
             resize(size * 2);
         }
     }
+
     @Override
     public T removeLast() {
         if (isEmpty()) {
@@ -75,6 +78,7 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         shrinksize();
         return k;
     }
+
     @Override
     public T removeFirst() {
         if (isEmpty()) {
@@ -87,11 +91,13 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         shrinksize();
         return k;
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public int size() {
         return size;
     }
+
     @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
@@ -99,26 +105,33 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         }
         System.out.println();
     }
+
     @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
         }
-        return items[(nextFirst+1+index)% items.length];
+        return items[(nextFirst + 1 + index) % items.length];
     }
+
     @Override
     //public boolean equals(ArrayDeque o)
     public boolean equals(Object l) {
-        if(l==null){
+        if (l == null) {
             return false;
         }
-        if(l==this){
+        if (l == this) {
             return true;
         }
-        if(!(l instanceof ArrayDeque)){
+        /**
+        if (!(l instanceof ArrayDeque)) {
             return false;
         }
-        ArrayDeque<?> o =(ArrayDeque<?>) l;
+         */
+        if(l.getClass()!=getClass()){
+            return false;
+        }
+        ArrayDeque<?> o = (ArrayDeque<?>) l;
         if (o.size() != size) {
             return false;
         }
@@ -131,9 +144,10 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         return true;
     }
 
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
+
     private class ArrayDequeIterator implements Iterator<T> {
         private int index;
 
