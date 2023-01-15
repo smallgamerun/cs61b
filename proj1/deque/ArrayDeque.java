@@ -132,13 +132,13 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
             return false;
         }
          */
-        Deque<?> o = (Deque<?>) l;
+        Deque<T> o = (Deque<T>) l;
         if (o.size() != size) {
             return false;
         }
         for (int i = 0; i < size; i++) {
 
-            if (o.get(i) != get(i))/*items[(i+1+nextFirst)% items.length]*/ {
+            if (!(o.get(i).equals(get(i))))/*items[(i+1+nextFirst)% items.length]*/ {
                 return false;
             }
         }
