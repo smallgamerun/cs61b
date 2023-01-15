@@ -86,7 +86,10 @@ public class ArrayDequeTest
         arrayDeque.addLast(1);
         arrayDeque.addLast(4);
         arrayDeque.addLast(2);
-        if(arrayDeque instanceof Deque){
+        linkedListDeque.addLast(1);
+        linkedListDeque.addLast(4);
+        linkedListDeque.addLast(2);
+        if(arrayDeque.equals(linkedListDeque) && linkedListDeque.equals(arrayDeque)){
             System.out.println(1);
         }
         else{
