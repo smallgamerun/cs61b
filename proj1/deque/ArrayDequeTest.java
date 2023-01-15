@@ -82,16 +82,17 @@ public class ArrayDequeTest
     public void iteratorTest()
     {
         ArrayDeque<Integer> arrayDeque=new ArrayDeque<Integer>();
+        LinkedListDeque<Integer> linkedListDeque=new LinkedListDeque<>();
         arrayDeque.addLast(1);
         arrayDeque.addLast(4);
         arrayDeque.addLast(2);
+        if(arrayDeque instanceof Deque){
+            System.out.println(1);
+        }
+        else{
+            System.out.println(0);
+        }
 
-    }
 
-    public void main()
-    {
-        //testThreeAddThreeRemove();
-        //ramdomizedTest();
-        iteratorTest();
     }
 }

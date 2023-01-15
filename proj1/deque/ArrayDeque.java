@@ -123,14 +123,15 @@ public class ArrayDeque<T> implements Deque<T>,Iterable<T> {
         if (l == this) {
             return true;
         }
-        /**
-        if (!(l instanceof ArrayDeque)) {
+
+        if (!(l instanceof Deque)) {
             return false;
         }
-         */
+        /**
         if(l.getClass()!=getClass()){
             return false;
         }
+         */
         ArrayDeque<?> o = (ArrayDeque<?>) l;
         if (o.size() != size) {
             return false;
