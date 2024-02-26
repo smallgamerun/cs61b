@@ -1,2 +1,2 @@
 # cs61b
-- self learing in NJU!
+- UC Berkeley CS61B
